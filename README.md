@@ -365,3 +365,82 @@ C 언어에서는 들여쓰기가 아닌 {} 중괄호로 구분
 - 이중포인터 
     - 선언
     `int** ppn;`
+
+## 5일차
+- 함수 포인터
+    - 함수의 이름은 함수가 저장된 메모리 공간을 가리키는 포인터이다.
+    - 함수의 이름이 의미하는 주소 값은 **함수 포인터 변수**를 선언해서 저장가능
+    - 함수 포인터의 형(type)
+        - 반환형, 매개변수 선언에 대한 정보
+        - → 반환형과 매개변수 선언이 동일한 두 함수 포인터 형은 일치
+
+- main함수 인자 전달
+    ```c
+    int main(int argc, char *argv[])
+    {
+
+        return 0;
+    }
+    ```
+    - `int argc`: main 함수 인자로 전달된 인자의 수
+    - `char* argv[]`: main 함수 인자로 전달된 문자열을 가리키는 포인터 배열
+        - argv[i]는 각각 문자열을 가리키는 char* (포인터)
+        - argv[0]은 프로그램 실행 파일의 이름
+        - 배열(arr[])과 포인터(*arr)가 같은 의미이므로, **char **argv**로도 표현 가능
+
+- void 포인터
+    - 형(type) 정보가 없어 모든 타입의 주소값을 저장 가능
+    - 형(type) 정보가 없기 때문에 메모리 접근을 위한 `*` 연산 불가능
+- malloc
+    - 동적 메모리 할당하는 함수
+    - Heap 영역에서 지정한 크기만큼 메모리 할당, 메모리 시작 주소 반환 (void* 타입)
+    - 사용이 끝난 메모리는 반드시 `free()`로 해제
+
+    - 사용법
+    ```c
+    #include <stdlib.h>
+    (포인터 변수형)malloc(sizeof(크기))
+
+    if (ptr == NULL) {  // 메모리 할당 실패 시 처리
+        printf("메모리 할당 실패!\n");
+        return 1;
+    }
+
+    free()
+    ```
+
+- struct(구조체)
+    - 선언 및 초기화
+        - `struct` 키워드 사용해서 선언
+        ```c
+        // typedef가 없는 경우
+        struct person{
+        char name[20];
+        int age;
+        char address[50];
+        };
+
+        // typedef가 있는 경우
+        // struct Person 대신 Person 으로 사용가능 
+        typedef struct Person {
+        char name[20];
+        int age;
+        char address[50];
+        } Person;
+        ```
+        - 초기화
+            - 선언 후 멤버별 초기화
+            - 선언과 동시에 중괄호`{}`로 초기화 
+    - 구조체 관련 연산자
+        - `.` : "Dot Operator" (닷 연산자, 구조체 멤버 접근 연산자)
+        - `->` : "Arrow operator" (화살표 연산자, 구조체 포인터 멤버 접근 연산자)
+    - typedef
+        - typedef는 자료형에 새로운 이름(별칭, alias)을 부여하는 키워드
+        - 기존 자료형을 더 간단하게 표현, 가독성을 높이는 역할
+        - `typedef int int32` **int age** 와 **int32 age** 같은 의미
+    - 구조체 포인터
+        - (*sp).name 과 sp -> name 은 같은 의미
+    - 구조체 배열
+        - 변수의 배열과 타입만 바뀌었을 뿐 크게 달라진 점은 없다.
+
+    
